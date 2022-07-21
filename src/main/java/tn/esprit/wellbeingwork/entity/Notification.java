@@ -1,6 +1,5 @@
 package tn.esprit.wellbeingwork.entity;
 
-import javafx.geometry.Pos;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
