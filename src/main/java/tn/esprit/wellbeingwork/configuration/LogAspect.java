@@ -36,15 +36,15 @@ import java.util.List;
                 log.info("Method : "  + jp.getSignature().getName()+" Returning: " + retVal.getClass().getSimpleName());
         }
 
-        @Around("execution(* tn.esprit.wellbeingwork.service.*.*(..))")
-        public void logAroundMethod(ProceedingJoinPoint joinPoint) throws Throwable{
-        log.info("Before Method Execution: "+ joinPoint.getSignature().getName());
-        try {
-            joinPoint.proceed();
-        } finally {
-
-        }
-        log.info("After Method Execution: "+ joinPoint.getSignature().getName());
-            }
+//        @Around("execution(* tn.esprit.wellbeingwork.service.*.*(..))")
+//        public void logAroundMethod(ProceedingJoinPoint joinPoint) throws Throwable{
+//        log.info("Before Method Execution: "+ joinPoint.getSignature().getName());
+//        try {
+//            joinPoint.proceed();
+//        } finally {
+//
+//        }
+//        log.info("After Method Execution: "+ joinPoint.getSignature().getName());
+//            }
     }
 

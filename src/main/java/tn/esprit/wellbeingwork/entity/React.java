@@ -22,7 +22,7 @@ public class React implements Serializable {
     private long idReact;
 
     //value= 0 dislike value=1 like
-    private boolean like;
+    private boolean likedislike;
 
     @ManyToOne
     private User userReact;
