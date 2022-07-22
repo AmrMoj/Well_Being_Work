@@ -9,15 +9,16 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * @author amoujbani on 7/19/2022
- * @project WellBeingWork
- */
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
 public class Feedback implements Serializable {
+  enum feedbackType {
+  NEGATIVE,
+  NEUTRAL,
+  POSITIVE
+}
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,4 +35,6 @@ public class Feedback implements Serializable {
 
     @ManyToOne
     private User feedbackCreator;
+    
+    private Enum feedbackType;
 }
