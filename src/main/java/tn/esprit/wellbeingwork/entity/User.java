@@ -11,6 +11,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -41,7 +43,8 @@ public class User implements Serializable {
     @Email
     @NotEmpty
     private String email;
-
+    @ManyToMany(fetch = FetchType.EAGER)
+	private Collection<Role> roles = new ArrayList<Role>();
     private boolean isAdministrator;
     private boolean isConfirmed;
     private Date birthdate;
