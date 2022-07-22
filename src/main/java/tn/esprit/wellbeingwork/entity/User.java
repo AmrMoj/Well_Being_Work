@@ -36,6 +36,7 @@ public class User implements Serializable {
 	private String phoneNumber;
 	private String password;
 	private String address;
+	@OneToOne
 	private User hierarchicalManager;
 
 	@Email
