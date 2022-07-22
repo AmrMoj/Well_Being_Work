@@ -1,5 +1,6 @@
 package tn.esprit.wellbeingwork.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,25 +18,34 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Event implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long idEvent;
 
-    private String eventName, description, location;
-    private Date startDate, endDate;
+    private String eventName;
+    private String description;
+    private String location;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private Date startDate;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private Date endDate;
 
     @Enumerated(EnumType.STRING)
     private EventCategory eventCategory;
 
     @ManyToOne
+    @JoinColumn(name = "idUser")
     private User userEventCreator;
 
     @OneToMany(mappedBy = "event")
     private List<EventRate> eventRates;
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(mappedBy = "event" )
     private List<Participant> participantList;
 
     @OneToMany(mappedBy = "event")
