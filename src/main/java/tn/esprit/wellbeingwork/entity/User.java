@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-
 /**
  * @author amoujbani on 7/17/2022
  * @project WellBeingWork
@@ -26,22 +25,22 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 public class User implements Serializable {
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long idUser;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long idUser;
 
-	private String firstName;
-	private String lastName;
-	private String phoneNumber;
-	private String password;
-	private String address;
-	@OneToOne
-	private User hierarchicalManager;
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
+    private String password;
+    private String address;
 
-	@Email
-	@NotEmpty
-	private String email;
+    @OneToOne
+    private User hierarchicalManager;
+
+    @Email
+    @NotEmpty
+    private String email;
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Collection<Role> roles = new ArrayList<Role>();
 	private boolean isConfirmed;
