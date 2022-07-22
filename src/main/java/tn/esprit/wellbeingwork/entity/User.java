@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+
 /**
  * @author amoujbani on 7/17/2022
  * @project WellBeingWork
@@ -25,7 +26,8 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 public class User implements Serializable {
-	@Id
+
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long idUser;
 
@@ -41,67 +43,70 @@ public class User implements Serializable {
     @Email
     @NotEmpty
     private String email;
-	@ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
 	private Collection<Role> roles = new ArrayList<Role>();
-	private boolean isConfirmed;
-	private Date birthdate;
-	private int raterCount;
-	private float rate;
-	private Date workStartDate;
+    private boolean isAdministrator;
+    private boolean isConfirmed;
+    private Date birthdate;
+    private int raterCount;
+    private float rate;
+    private Date workStartDate;
 
-	@ColumnDefault("false")
-	private boolean isArchived;
+    @ColumnDefault("false")
+    private boolean isArchived;
 
-	@Enumerated(EnumType.STRING)
-	private Position positionName;
+    @Enumerated(EnumType.STRING)
+    private Position positionName;
 
-	@Enumerated(EnumType.STRING)
-	private Level level;
+    @Enumerated(EnumType.STRING)
+    private Level level;
 
-	@OneToMany(mappedBy = "userEventCreator")
-	@JsonIgnore
-	private List<Event> eventList;
+    @OneToMany(mappedBy = "userEventCreator")
+    @JsonIgnore
+    private List<Event> eventList = new java.util.ArrayList<>();
 
-	@OneToMany(mappedBy = "userEventRater")
-	private List<EventRate> eventRates;
+    @OneToMany(mappedBy = "userEventRater")
+    private List<EventRate> eventRates;
 
-	@OneToMany(mappedBy = "userParticipant")
-	private List<Participant> participantList;
+    @OneToMany(mappedBy = "userParticipant")
+    private List<Participant> participantList;
 
-	@OneToMany(mappedBy = "userReact")
-	private List<React> reacts;
+    @OneToMany(mappedBy = "userReact")
+    private List<React> reacts;
 
-	@OneToMany(mappedBy = "userComment")
-	private List<Comment> comments;
+    @OneToMany(mappedBy = "userComment")
+    private List<Comment> comments;
 
-	@OneToMany(mappedBy = "userPostCreator")
-	private List<Post> posts;
+    @OneToMany(mappedBy = "userPostCreator")
+    private List<Post> posts;
 
-	@OneToMany(mappedBy = "userNotification")
-	private List<Notification> notifications;
+    @OneToMany(mappedBy = "userNotification")
+    private List<Notification> notifications;
 
-	@OneToMany(mappedBy = "pollCreator")
-	private List<PollSubject> pollSubjects;
+    @OneToMany(mappedBy = "pollCreator")
+    private List<PollSubject> pollSubjects;
 
-	@OneToMany(mappedBy = "userChoice")
-	private List<PollResult> pollResults;
+    @OneToMany(mappedBy = "userChoice")
+    private List<PollResult> pollResults;
 
-	@OneToMany(mappedBy = "userSender")
-	private List<Message> messageSenders;
+    @OneToMany(mappedBy = "userSender")
+    private List<Message> messageSenders;
 
-	@OneToMany(mappedBy = "userReceiver")
-	private List<Message> messageReceivers;
+    @OneToMany(mappedBy = "userReceiver")
+    private List<Message> messageReceivers;
 
-	@OneToMany(mappedBy = "feedbackOwner")
-	private List<Feedback> feedbackOwners;
+    @OneToMany(mappedBy = "feedbackOwner")
+    private List<Feedback> feedbackOwners;
 
-	@OneToMany(mappedBy = "feedbackCreator")
-	private List<Feedback> feedbackCreators;
+    @OneToMany(mappedBy = "feedbackCreator")
+    private List<Feedback> feedbackCreators;
 
-	@OneToMany(mappedBy = "userParticipant")
-	private List<Reservation> reservations;
+    @OneToMany(mappedBy = "userParticipant")
+    private List<Reservation> reservations;
 
-	@OneToMany(mappedBy = "userPartner")
-	private List<Partner> partners;
+    @OneToMany(mappedBy = "userPartner")
+    private List<Partner> partners;
+
+
 
 }
