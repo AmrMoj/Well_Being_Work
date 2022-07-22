@@ -34,6 +34,8 @@ public class User implements Serializable {
     private String phoneNumber;
     private String password;
     private String address;
+
+    @OneToOne
     private User hierarchicalManager;
 
     @Email
@@ -58,7 +60,7 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "userEventCreator")
     @JsonIgnore
-    private List<Event> eventList;
+    private List<Event> eventList = new java.util.ArrayList<>();
 
     @OneToMany(mappedBy = "userEventRater")
     private List<EventRate> eventRates;
@@ -101,5 +103,7 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "userPartner")
     private List<Partner> partners;
+
+
 
 }
