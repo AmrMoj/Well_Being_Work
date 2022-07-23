@@ -28,7 +28,10 @@ public class Post implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long idPost;
 
+    private String title;
+    private String theme;
     private String postContent;
+    private Date postDate;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
