@@ -22,7 +22,7 @@ public class PollOption implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long idOption;
 
-    private String Option;
+    private String pollOption;
 
     @ManyToOne
     private PollSubject pollSubject;
