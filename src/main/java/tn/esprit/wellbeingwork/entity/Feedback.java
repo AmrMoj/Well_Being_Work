@@ -36,5 +36,5 @@ public class Feedback implements Serializable {
     @ManyToOne
     private User feedbackCreator;
     
-    private Enum feedbackType;
+    private feedbackType feedbackType;
 }

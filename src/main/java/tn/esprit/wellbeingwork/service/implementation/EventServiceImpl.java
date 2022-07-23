@@ -3,7 +3,7 @@ package tn.esprit.wellbeingwork.service.implementation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tn.esprit.wellbeingwork.controller.exception.NoDataFoundException;
+//import tn.esprit.wellbeingwork.controller.exception.NoDataFoundException;
 import tn.esprit.wellbeingwork.entity.Event;
 import tn.esprit.wellbeingwork.repository.EventRepository;
 import tn.esprit.wellbeingwork.service.EventService;
@@ -38,8 +38,8 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Event getEvent(Long id) {
-
-        return eventRepository.findById(id).orElseThrow(NoDataFoundException::new);
+return null;
+       // return eventRepository.findById(id).orElseThrow(NoDataFoundException::new);
     }
 
     @Override
