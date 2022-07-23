@@ -1,5 +1,7 @@
 package tn.esprit.wellbeingwork.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @Setter
 @Getter
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="idPoll")
 public class PollSubject implements Serializable {
 
     @Id

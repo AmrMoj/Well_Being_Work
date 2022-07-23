@@ -1,5 +1,7 @@
 package tn.esprit.wellbeingwork.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +20,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="idMessage")
 public class Message implements Serializable {
 
     @Id

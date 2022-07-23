@@ -1,5 +1,7 @@
 package tn.esprit.wellbeingwork.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,6 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="idEventRate")
 public class EventRate implements Serializable {
 
     @Id
