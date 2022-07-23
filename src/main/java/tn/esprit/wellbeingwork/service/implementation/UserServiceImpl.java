@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.transaction.Transactional;
-import javax.validation.ReportAsSingleViolation;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,35 +27,38 @@ import tn.esprit.wellbeingwork.service.UserService;
 @Transactional
 @Slf4j
 public class UserServiceImpl implements UserService, UserDetailsService {
+
+
 	@Autowired
 	private final UserRepository userRepository;
 	@Autowired
 	private final RoleRepository roleRepository;
+	@Autowired
+	private final PasswordEncoder passwordEncoder;
 
-	
 	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String email)  {
 		User user = userRepository.findByEmail(email).orElse(null);
-		if (user == null ) {
+		if (user == null) {
 			log.error("user not found");
 			throw new UsernameNotFoundException("user not found in the db ");
-			
-		}else {
+
+		} else {
 			log.info("user found");
 		}
 		Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
 		user.getRoles().forEach(role -> {
 			authorities.add(new SimpleGrantedAuthority(role.getName()));
 		});
-		return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getEmail(), false, false, false, false, null);
+		return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), true, true,
+				true, true, authorities);
 
-			}
+	}
 
-	
-	
 	@Override
 	public User saveUser(User user) {
 		log.info("We are about to save a new user {} to the DB", user.getFirstName());
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		return userRepository.save(user);
 
 	}
@@ -88,6 +91,5 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 			user.getRoles().add(role);
 		}
 	}
-
 
 }
