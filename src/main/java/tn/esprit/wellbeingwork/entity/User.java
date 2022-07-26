@@ -110,6 +110,8 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "userPartner")
     private List<Partner> partners;
 
-
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "collaborator_id", referencedColumnName = "id")
+    private Collaborator collaborator;
 
 }
