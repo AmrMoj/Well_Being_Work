@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -71,7 +73,8 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "userEventRater")
     private List<EventRate> eventRates;
 
-    @OneToMany(mappedBy = "userParticipant")
+    @OneToMany(mappedBy = "userParticipant", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Participant> participantList;
 
     @OneToMany(mappedBy = "userReact")
@@ -82,9 +85,6 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "userPostCreator")
     private List<Post> posts;
-
-    @OneToMany(mappedBy = "userNotification")
-    private List<Notification> notifications;
 
     @OneToMany(mappedBy = "pollCreator")
     private List<PollSubject> pollSubjects;
@@ -113,5 +113,41 @@ public class User implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "collaborator_id", referencedColumnName = "id")
     private Collaborator collaborator;
+
+    @ManyToMany
+    @JsonIgnore
+    @JoinTable(
+            name = "event_categories",
+            joinColumns = @JoinColumn(name = "idUser"),
+            inverseJoinColumns = @JoinColumn(name = "idEventCatego"))
+    List<EventCatego> eventCategos;
+
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JsonIgnore
+    @JoinTable(
+            name = "user_notification",
+            joinColumns = @JoinColumn(name = "idUser"),
+            inverseJoinColumns = @JoinColumn(name = "idNotification"))
+    List<Notification> notifications;
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (null == obj) {
+            return false;
+        }
+
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof User)) {
+            return false;
+        }
+
+        User that = (User) obj;
+
+        return -1 != this.getIdUser() && this.getIdUser()==(that.getIdUser());
+    }
 
 }

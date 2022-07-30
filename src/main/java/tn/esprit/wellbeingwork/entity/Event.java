@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -22,8 +24,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="idEvent")
-public class Event implements Serializable {
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="idEvent")
+public class Event implements Serializable, Comparable <Event>{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long idEvent;
@@ -48,7 +50,8 @@ public class Event implements Serializable {
     @OneToMany(mappedBy = "event")
     private List<EventRate> eventRates;
 
-    @OneToMany(mappedBy = "event" )
+    @OneToMany(mappedBy = "event", fetch =FetchType.EAGER )
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Participant> participantList;
 
     @OneToMany(mappedBy = "event")
@@ -59,4 +62,13 @@ public class Event implements Serializable {
 
     @OneToMany(mappedBy = "eventNotification")
     private List<Notification> notifications;
- }
+
+    @ManyToOne()
+    private EventCatego eventCatego;
+
+
+    @Override
+    public int compareTo(Event o) {
+       return getStartDate().compareTo(o.getStartDate());
+    }
+}
